@@ -62,5 +62,5 @@ if __name__ == '__main__':
     app.run()
 
 
-def run():
+def run(**kwargs):
     app.run()
