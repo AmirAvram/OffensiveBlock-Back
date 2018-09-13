@@ -43,3 +43,7 @@ def get_max_tuple(tuples):
 
 if __name__ == '__main__':
     app.run()
+
+
+def run():
+    app.run()
