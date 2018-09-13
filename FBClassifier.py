@@ -6,7 +6,7 @@ from sklearn.externals import joblib
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 re_tok = re.compile(f'([{string.punctuation}“”¨«»®´·º½¾¿¡§£₤‘’])')
-FILES_LOCATION = "idk/"
+FILES_LOCATION = "model/"
 
 def tokenize(s): return re_tok.sub(r' \1 ', s).split()
 
