@@ -5,6 +5,8 @@ import json
 
 app = Flask(__name__)
 MAX_WANTED_TUPLE_VALUE = 0.7
+ADMIN_EMAIL = 'marzuckerberg@fb.com'
+SMTP_SERVER = 'mxout.tau.ac.il'
 
 
 @app.route('/', methods=['GET', 'OPTIONS'])
@@ -17,6 +19,9 @@ def hello():
         }))
         resp.headers['Access-Control-Allow-Origin'] = '*'
         resp.headers['Access-Control-Allow-Headers'] = '*'
+        send_email(smtp_server=SMTP_SERVER, sender=ADMIN_EMAIL,
+                   receiver='dorbank@gmail.com', subject='Hi...',
+                   content='who did you call mother fucker?!')
         return resp
     resp = Response(json.dumps({
     }))
@@ -39,6 +44,18 @@ def get_max_tuple(tuples):
         elif max_tuple is None:
             max_tuple = tup
     return max_tuple
+
+
+def send_email(smtp_server, sender, receiver, subject='', content=''):
+    from email.mime.text import MIMEText
+    from smtplib import SMTP
+    msg = MIMEText(content)
+    msg['Subject'] = subject
+    msg['From'] = sender
+    msg['To'] = receiver
+    s = SMTP(smtp_server)
+    s.send_message(msg)
+    s.quit()
 
 
 if __name__ == '__main__':
