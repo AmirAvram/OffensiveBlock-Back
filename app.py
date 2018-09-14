@@ -7,6 +7,8 @@ app = Flask(__name__)
 MAX_WANTED_TUPLE_VALUE = 0.7
 ADMIN_EMAIL = 'marzuckerberg@fb.com'
 SMTP_SERVER = 'mxout.tau.ac.il'
+SMTP_SERVER_NAME = "smtp.gmail.com"
+SMTP_SERVER_PORT = 587
 
 
 @app.route('/', methods=['GET', 'OPTIONS'])
@@ -20,7 +22,7 @@ def hello():
         resp.headers['Access-Control-Allow-Origin'] = '*'
         resp.headers['Access-Control-Allow-Headers'] = '*'
         send_email(smtp_server=SMTP_SERVER, sender=ADMIN_EMAIL,
-                   receiver='dorbank@gmail.com', subject='Hi...',
+                   receiver='amiravrm@gmail.com', subject='Hi...',
                    content='who did you call mother fucker?!')
         return resp
     resp = Response(json.dumps({
@@ -53,15 +55,23 @@ def send_email(smtp_server, sender, receiver, subject='', content=''):
     msg['Subject'] = subject
     msg['From'] = sender
     msg['To'] = receiver
-    s = SMTP(smtp_server)
+    s = SMTP()
+    s.connect(SMTP_SERVER_NAME, SMTP_SERVER_PORT)
+    s.starttls()
     s.send_message(msg)
     s.quit()
 
 
 if __name__ == '__main__':
-    app.run()
+    # app.run()
+    pass
+
+
+send_email(smtp_server=SMTP_SERVER, sender=ADMIN_EMAIL,
+           receiver='amiravrm@gmail.com', subject='Hi...',
+           content='who did you call mother fucker?!')
 
 
 def run(var, var2):
-    print(var + " what " + var2)
+    print(str(var) + " what " + str(var2))
     app.run(host="0.0.0.0", port=5000)
