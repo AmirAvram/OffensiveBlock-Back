@@ -63,4 +63,5 @@ if __name__ == '__main__':
 
 
 def run(var, var2):
+    print(var + " what " + var2)
     app.run(host="0.0.0.0", port=5000)
